@@ -25,7 +25,9 @@ function App() {
     const getUsers = async () => {
       try {
         const res = await axios.get("http://localhost:8800");
-        setUsers(res.data.rows.sort((a,b) => (a.nome > b.nome ? 1: -1)));
+        console.log("Dados do banco:", res.data);
+        const data = Array.isArray(res.data) ? res.data : res.data.rows;
+        setUsers(res.data.sort((a,b) => (a.nome > b.nome ? 1: -1)));
       } catch (error) {
         toast.error(error);
       }
@@ -33,7 +35,7 @@ function App() {
 
       useEffect(() => {
       getUsers();
-      }, [setUsers]);
+      }, []);
   return (
     <>
       <Container> 

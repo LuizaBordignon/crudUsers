@@ -31,7 +31,7 @@ export const Th = styled.th`
 
 export const Td = styled.td`
     padding-top: 15px;
-    text-align: ${(props) => (props.alignCenter ? "center": "start")};
+    text-align: ${(props) => (props.$alignCenter ? "center": "start")};
     width: ${(props) => (props.width ? props.width: "auto")};
     
     @media (max-width: 500px) {
@@ -46,18 +46,24 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
     };
     
     const handleDelete = async (id) => {
-        await axios
-        .delete("http://localhost:8800" + id)
-        .then(({ data }) => {
-            const newArray = users.filter((user) => user.id !== id);
-
-            setUsers(newArray);
-            toast.success(data);
-        })
-        .catch(({data}) => toast.error(data));
+  // Console para você conferir se o ID está chegando certo
+    console.log("Tentando deletar o ID:", id);
+     await axios
+    .delete("http://localhost:8800/" + id)
+    .then(({ data }) => {
+      const newArray = users.filter((user) => user.id !== id);
+      setUsers(newArray);
+      toast.success(data);
+    })
+    .catch((error) => {
+      // Se houver resposta do servidor, mostra ela, senão mostra o erro comum
+      const msg = error.response ? error.response.data : error.message;
+      toast.error(msg);
+    });
+};
 
     setOnEdit(null);
-    };
+
     return(
         <Table>
             <Thead>
