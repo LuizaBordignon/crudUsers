@@ -50,9 +50,11 @@ const Form = ({getUsers, onEdit, setOnEdit}) => {
             user.nome.value = onEdit.nome;
             user.email.value = onEdit.email;
             user.fone.value = onEdit.fone; 
-            user.data_nasc.value = onEdit.data_nasc;
+                if (onEdit.data_nasc) {
+                user.data_nasc.value = onEdit.data_nasc.split("T")[0];
+            }
         }
-    }, [onEdit]);
+        }, [onEdit]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -77,7 +79,7 @@ const Form = ({getUsers, onEdit, setOnEdit}) => {
                     data_nasc: user.data_nasc.value,
                 })
                 .then (({ data }) => toast.success(data))
-                .catch(({ data }) => toast.error(data));
+                .catch((err) => toast.error(err.response?.data || "Erro inesperado"))
         }else {
             await axios
             .post("http://localhost:8800", {
@@ -88,7 +90,7 @@ const Form = ({getUsers, onEdit, setOnEdit}) => {
                 data_nasc: user.data_nasc.value,
             })
             .then (({ data }) => toast.success(data))
-            .catch(({ data }) => toast.error(data));
+            .catch((err) => toast.error(err.response?.data || "Erro inesperado"))
         }
         user.nome.value = "";
         user.email.value = "";
