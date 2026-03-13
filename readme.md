@@ -22,7 +22,7 @@ O frontend foi desenvolvido em React, enquanto o backend foi implementado em Nod
 <li>✏️ Editar informações de usuários</li>
 <li>❌ Remover usuários</li>
 <li>💾 Persistência de dados no PostgreSQL</li>
-</pre><hr><h2>📦 Instalação</h2><p>Clone o repositório:</p><pre>
+<hr><h2>📦 Instalação</h2><p>Clone o repositório:</p><pre>
 git clone https://github.com/LuizaBordignon/crudUsers.git
 </pre><p>Entre na pasta do projeto:</p><pre>
 cd crudUsers
